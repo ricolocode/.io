@@ -1,3 +1,19 @@
+/* ==========================================================
+   1. SCHRIFT
+   ========================================================== */
+@font-face {
+  font-family: "Sniglet";
+  src: url("Sniglet-Regular.ttf");
+  font-weight: normal;
+  font-display: swap;
+}
+
+/* ==========================================================
+   2. FARBEN: Standard und Themes (jeweils Hell und Dunkel)
+   ========================================================== */
+
+/* Standard (greift auch, wenn noch kein Theme gesetzt ist): baige, hell */
+:root,
 html[data-theme="baige"] {
   --bg: #c1b5a7;
   --bg1: #9abcb7;
@@ -11,6 +27,8 @@ html[data-theme="baige"] {
   --shadow: rgba(0, 0, 0, 0.25);
 }
 
+/* Standard dunkel: baige */
+html.dark,
 html[data-theme="baige"].dark {
   --bg: #332822;
   --bg1: #003335;
@@ -76,17 +94,99 @@ html[data-theme="schwarz/weiß"].dark {
   --shadow: rgb(0 0 0 / 46%);
 }
 
-@font-face {
-  font-family: "Sniglet";
-  src: url("Sniglet/Sniglet-Regular.ttf");
-  font-weight: normal;
-  font-display: swap;
+/* ==========================================================
+   3. GRUNDLAYOUT
+   ========================================================== */
+body {
+  font-family: "Sniglet", sans-serif;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 16px;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--text);
+  transition:
+    background 0.3s,
+    color 0.3s;
 }
 
-/* Menü */
+h1 {
+  color: var(--heading);
+}
+
+a {
+  color: var(--link);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.fade {
+  -webkit-mask-image:
+    linear-gradient(
+      to right,
+      transparent,
+      black 0.5%,
+      black 99.5%,
+      transparent
+    ),
+    linear-gradient(to bottom, transparent, black 1%, black 99%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(
+      to right,
+      transparent,
+      black 0.5%,
+      black 99.5%,
+      transparent
+    ),
+    linear-gradient(to bottom, transparent, black 1%, black 99%, transparent);
+  mask-composite: intersect;
+}
+
+/* ==========================================================
+   4. NAVIGATION
+   ========================================================== */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav a.aktiv {
+  font-weight: bold;
+}
+
+/* ==========================================================
+   5. DESIGN-MENÜ (Button, Farbwahl, Modus-Wahl)
+   ========================================================== */
 .einstellungen {
   position: relative;
   margin-left: auto;
+}
+
+#settings-toggle {
+  margin-left: auto;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 0px solid var(--border);
+  background: var(--cards);
+  color: var(--text);
 }
 
 #settings-panel {
@@ -124,14 +224,17 @@ html[data-theme="schwarz/weiß"].dark {
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  box-shadow: 0 4px 12px var(--shadow);
 }
 
 .swatch[data-farbe="baige"] {
   background: var(--bg3);
 }
+
 .swatch[data-farbe="turquise"] {
   background: var(--bg1);
 }
+
 .swatch[data-farbe="schwarz/weiß"] {
   background: var(--bg2);
 }
@@ -165,70 +268,9 @@ html[data-theme="schwarz/weiß"].dark {
   color: var(--text);
 }
 
-body {
-  font-family: "Sniglet", sans-serif;
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 0 16px;
-  line-height: 1.6;
-  background: var(--bg);
-  color: var(--text);
-}
-h1 {
-  color: var(--heading);
-}
-a {
-  color: var(--link);
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid var(--border);
-}
-
-#settings-toggle {
-  margin-left: auto;
-  cursor: pointer;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 0px solid var(--border);
-  background: var(--cards);
-  color: var(--text);
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-}
-
-.fade {
-  -webkit-mask-image:
-    linear-gradient(
-      to right,
-      transparent,
-      black 0.5%,
-      black 99.5%,
-      transparent
-    ),
-    linear-gradient(to bottom, transparent, black 1%, black 99%, transparent);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(
-      to right,
-      transparent,
-      black 0.5%,
-      black 99.5%,
-      transparent
-    ),
-    linear-gradient(to bottom, transparent, black 1%, black 99%, transparent);
-  mask-composite: intersect;
-}
-
+/* ==========================================================
+   6. INHALT: Karten und Footer
+   ========================================================== */
 .karten {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -255,9 +297,16 @@ footer {
   opacity: 0.7;
 }
 
+/* ==========================================================
+   7. EFFEKTE: Schatten, Hover und Touch
+   ========================================================== */
 .karte,
 #settings-toggle {
   box-shadow: 0 8px 24px var(--shadow);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Maus: nur auf Geräten, die wirklich hovern können */
@@ -269,31 +318,9 @@ footer {
   }
 }
 
-.swatch {
-  box-shadow: 0 4px 12px var(--shadow);
-}
-
 /* Touch und Mausklick: solange gedrückt wird */
 .karte:active,
 #settings-toggle:active {
   transform: translateY(-4px);
   box-shadow: 0 12px 28px var(--shadow);
-}
-
-body {
-  transition:
-    background 0.3s,
-    color 0.3s;
-}
-
-nav a {
-  text-decoration: none;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-nav a.aktiv {
-  font-weight: bold;
 }
