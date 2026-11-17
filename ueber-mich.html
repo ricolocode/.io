@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Meine erste Webseite: Hier lerne ich HTML, CSS und JavaScript."
+    />
+    <title>Über mich</title>
+    <script>
+      try {
+        const farbe = localStorage.getItem("farbe") || "weiß";
+        document.documentElement.dataset.theme = farbe;
+        if (localStorage.getItem("theme") === "dark") {
+          document.documentElement.classList.add("dark");
+        }
+      } catch (e) {}
+    </script>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>®️</text></svg>"
+    />
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="aktiv">Start</a>
+      <a href="ueber-mich.html">Über mich</a>
+      <div class="einstellungen">
+        <button id="settings-toggle" aria-expanded="false">Design</button>
+        <div id="settings-panel" hidden>
+          <p class="label">Farbe</p>
+          <div class="swatches">
+            <button class="swatch" data-farbe="baige" aria-label="Baige"></button>
+            <button class="swatch" data-farbe="turquise" aria-label="Turquise"></button>
+            <button class="swatch" data-farbe="weiß" aria-label="Weiß"></button>
+          </div>
+          <p class="label">Modus</p>
+          <div class="modus">
+            <button data-mode="light">Hell</button>
+            <button data-mode="dark">Dunkel</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <h1>Über mich</h1>
+    <img
+      class="fade"
+      src="misty-autumn-forest-reflected-calm-lake.jpg"
+      alt="an immage of a misty autumn forest reflected by a calm lake"
+    />
+    <p>Hi! Ich bin Rico.</p>
+
+    <footer>
+      <p>© 2026 · Meine erste Webseite</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
